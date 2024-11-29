@@ -89,7 +89,7 @@ void sync_thread(void)
 }
 
 /* cria as threads */
-void create_threads(const struct device *gpio_dev)
+void create_threads()
 {
     k_thread_create(&sync_thread_data, sync_thread_stack, 
                     STACK_SIZE, (k_thread_entry_t)sync_thread, 
@@ -102,7 +102,7 @@ void main(void)
     __ASSERT(gpio_dev != NULL, "Failed to bind to GPIO device");
 
     setup_gpio_callback(gpio_dev); /* configura o setup de GPIO */
-    create_threads(gpio_dev); /* cria a thread */
+    create_threads(); /* cria a thread */
 
     /* inicia o temporizador para expirar a cada segundo (1000 ms) */
     k_timer_start(&periodic_timer, K_SECONDS(1), K_SECONDS(1));
